@@ -22,8 +22,8 @@ bcftools concat Sw_g3_b1_filtered_x_sorted.vcf Sw_g3_b1_filtered_auto_sorted.vcf
 
 #FILTER BATCH 2 (med. depth)
 source activate vcftools
-vcftools --gzvcf ../Sw_g3_all.vcf.gz --not-chr scaffold_1 --remove keep_batch1 --minDP 5 --maxDP 60 --minGQ 20 --minQ 30 --recode --recode-INFO-all --stdout | bgzip -c > Sw_g3_b2_filtered_auto.vcf.gz
-vcftools --gzvcf ../Sw_g3_all.vcf.gz --chr scaffold_1 --keep keep_batch1 --minDP 5 --maxDP 42 --minGQ 20 --minQ 30 --recode --recode-INFO-all --stdout | bgzip -c > Sw_g3_b2_filtered_x.vcf.gz
+vcftools --gzvcf ../Sw_g3_all.vcf.gz --not-chr scaffold_1 --remove keep_batch2 --minDP 5 --maxDP 60 --minGQ 20 --minQ 30 --recode --recode-INFO-all --stdout | bgzip -c > Sw_g3_b2_filtered_auto.vcf.gz
+vcftools --gzvcf ../Sw_g3_all.vcf.gz --chr scaffold_2 --keep keep_batch1 --minDP 5 --maxDP 42 --minGQ 20 --minQ 30 --recode --recode-INFO-all --stdout | bgzip -c > Sw_g3_b2_filtered_x.vcf.gz
 source activate bcftools
 bcftools sort Sw_g3_b2_filtered_auto.vcf.gz -o Sw_g3_b2_filtered_auto_sorted.vcf.gz
 bcftools sort Sw_g3_b2_filtered_x.vcf.gz -o Sw_g3_b2_filtered_x_sorted.vcf.gz
