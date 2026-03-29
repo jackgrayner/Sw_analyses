@@ -1,4 +1,23 @@
+## mes_nums.csv
+Data from temperature rearing experiment.
 
+Column names:
+- f0_box: box ID for F0
+- temp: temp at which f1 box reared
+- date at which f1 egg pads collected
+- sex: f1 individual sex
+- pronotum: f1 pronotum length
+- rwing_length: f1 right wing length
+- rwing_width: f1 right wing width (if collected - males only)
+- lwing_length: f1 left wing length(if collected)
+- lwing_width: f1 right wing width (if collected)
+- rep: concatenated form of f0_box, temp, date_collected
+- pron.w.ratio: pronotum:wing length ratio
+- rearing_density: number of f1 in box prior to culling (to approx 100 remaining f1)
+- days_to_hatch: days from egg collection until first hatchling observe (if recorded)
+
+## analysis_plot.R
+R script used to analyse mes_nums.csv and plot data.
 
 ### R session info
 R version 4.4.2 (2024-10-31)
