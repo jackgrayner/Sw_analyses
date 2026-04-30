@@ -114,6 +114,45 @@ Sw.plot.zoomed<-ggplot(Sw[Sw$chr==1 & Sw$ps>96e+06 & Sw$ps<246e+06,],aes(x=ps/1e
   geom_point(size=1)+scale_y_continuous(limits=c(1,13.5),expand=c(0,0))+
   ylab("-log10(P)")
 
+#add DEGs
+degs<-read.csv("Sw_degs.csv",h=T)
+degs$chr<-as.integer(degs$chr)
+head(degs[order(degs$padj),])
+
+dge.plot<-ggplot(degs[degs$chr %in% c(1:14),],aes(x=start,y=(log10(pvalue))))+
+  geom_rect(data=data.frame(chr=1),ymin=0,ymax=-150,xmin=96e+06,xmax=246e+06,inherit.aes=FALSE,colour='#fff',fill='#f0f5ed',linewidth=0.05)+
+  #geom_rect(data=data.frame(chr=1),ymin=0,ymax=-150,xmin=132436658,xmax=194378945,inherit.aes=FALSE,colour='#aaa',fill='#f5eded',linewidth=0.05)+
+  theme_classic()+facet_grid(.~chr,space='free',scales='free')+
+  geom_point(data=Sw,aes(x=ps,y=(2)),colour='black')+
+  geom_point(data=degs[degs$chr %in% c(1:14) & !(degs$padj<0.05 & abs(degs$log2FoldChange)>1),],
+             aes(x=start,y=(log10(pvalue))),colour="#ccc",size=0.5)+
+  #geom_point(data=degs[degs$chr %in% c(1:14) & degs$padj<0.05 & !abs(degs$log2FoldChange)>1,],
+  #           aes(x=start,y=(log10(pvalue))),colour="#e6a5a5",size=0.5)+
+  geom_point(data=degs[degs$chr %in% c(1:14) & (degs$padj<0.05 & abs(degs$log2FoldChange)>1),],
+             aes(x=start,y=(log10(pvalue))),colour="#db6767",size=0.5)+
+  theme(panel.grid=element_blank(),axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),legend.position='none',
+        panel.spacing.x=unit(0.05, "lines"),
+        axis.line=element_blank(),
+        axis.line.y=element_line(),
+        axis.title.x=element_blank(),strip.text = element_blank(),
+        strip.background = element_blank(),plot.margin = unit(c(0,5.5,5.5,5.5), "pt"))+
+  #geom_text_repel(data=degs[-log10(degs$pvalue)>30,],aes(x=start,y=-log10(degs$pvalue),label=Gene_Name))+
+  scale_colour_manual(values=c("#ccc","#db6767"))+scale_y_continuous(limits=c(-1.3,-150),expand=c(0,0))+
+  ylab("-log10(P)")
+
+# ggsave('Sw_gwas_DGE.png',width=7,height=4.25,plot=
+#          (Sw.plot+labs(tag="D"))/
+#             dge.plot/
+#          (Sw.plot.zoomed+labs(tag="E")+pops.pc1.chr1+labs(tag="F")+plot_layout(widths=c(2,1)))+
+#          plot_layout(heights=c(0.75,0.75,1)),dpi=600)
+
+ggsave('Sw_gwas_DGE_wide.png',width=8.5,height=5,plot=
+         (Sw.plot.zoomed+labs(tag="D")+pops.pc1.chr1+labs(tag="E")+plot_layout(widths=c(2.25,0.75)))/
+         (Sw.plot)/
+         dge.plot/
+         plot_layout(heights=c(1,1,1)),dpi=600)
+
 
 
 #
