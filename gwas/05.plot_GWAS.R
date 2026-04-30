@@ -41,13 +41,13 @@ Sw<-Sw[Sw$p_lrt<0.1,]
 write.csv(file="Sw_merged_b1_b2_filteredP0.1.csv",Sw)
 
 #read in annotation info
-tocgff<-read.table("~/Documents/StA/Sw_WGS/TOC.asm.scaffold.gene.gff3") %>% 
+tocgff<-read.table("TOC.asm.scaffold.gene.gff3") %>% 
   mutate(V1=as.integer(gsub("scaffold_","",V1)),
          gene=gsub("ID=.*;.*Name=","",V9)) %>%
   filter(V3=="gene")
 
 #read functional annotations
-gene_annos<-read.table("~/Documents/StA/Sw_WGS/TOC.asm.scaffold.gene.SWISSPROT.blastp.top_hit.txt")
+gene_annos<-read.table("TOC.asm.scaffold.gene.SWISSPROT.blastp.top_hit.txt")
 colnames(gene_annos)<-c("gene","score","anno")
 gene_annos$gene<-gsub("\\.t.*","",gene_annos$gene)#remove transcript identifier
 
