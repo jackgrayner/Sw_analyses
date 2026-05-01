@@ -28,9 +28,7 @@ pops.pc1.chr1<-ggplot(pca, aes(x=as.numeric(PC1), y=labs,fill=labs,colour=labs))
         legend.position='none')+xlab(paste0("PC1 (",round(pve[1,2],digits=2),"%)"))
 
 #fisher test
-pca$inv<-FALSE
-pca[pca$PC1>0,]$inv<-TRUE
-fisher.test(table(pca$inv,pca$labs))
+fisher.test(table(pca$PC1>0,pca$labs))
 
 #GWAS
 #first remove variants with P >= 0.1
