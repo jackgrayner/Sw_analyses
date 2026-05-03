@@ -3,8 +3,9 @@ Data from temperature rearing experiment.
 
 Column names:
 - f0_box: box ID for F0
+- 
 - temp: temp at which f1 box reared
-- date at which f1 egg pads collected
+- date_collected: date at which f1 egg pads collected
 - sex: f1 individual sex
 - pronotum: f1 pronotum length
 - rwing_length: f1 right wing length
@@ -13,6 +14,7 @@ Column names:
 - lwing_width: f1 right wing width (if collected)
 - rep: concatenated form of f0_box, temp, date_collected
 - pron.w.ratio: pronotum:wing length ratio
+- sw.yn: whether individual was recorded as expressing small-wing (Sw) or typical long-wing (Lw) phenotypes
 - rearing_density: number of f1 in box prior to culling (to approx 100 remaining f1)
 - days_to_hatch: days from egg collection until first hatchling observe (if recorded)
 
