@@ -17,11 +17,14 @@ summary(lme.rpl)
 qqnorm(resid(lme.rpl))
 qqline(resid(lme.rpl))
 
-#what affects wing length?
+#does sw frequency differ between temps? (note small sample of 15 Sw)
+fisher.test(table(mes$sw.yn,mes$temp)) #no
+
+#what affects wing length? 
 lme.rwl<-lmer(scale(log10(rwing_length)) ~ sex + scale(log10(pronotum)) + factor(temp) + 
                 scale(rearing_density) + (1|f0_box/rep),data=mes[mes$sw.yn=="Lw",])
-lme.rwl<-lmer(scale(log10(rwing_length)) ~ sex + scale(log10(pronotum)) + factor(temp) + sw.yn +
-                scale(rearing_density) + (1|f0_box/rep),data=mes)
+#lme.rwl<-lmer(scale(log10(rwing_length)) ~ sex + scale(log10(pronotum)) + factor(temp) + sw.yn +
+#                scale(rearing_density) + (1|f0_box/rep),data=mes)
 Anova(lme.rwl)
 summary(lme.rwl)
 qqnorm(resid(lme.rwl))
